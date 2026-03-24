@@ -1,0 +1,27 @@
+# data
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.0
+
+# database
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+
+# ml
+xgboost==2.0.3
+scikit-learn==1.5.0
+
+# viz + dashboard
+streamlit==1.35.0
+plotly==5.22.0
+
+# ingestion
+requests==2.32.2
+
+# testing + linting
+pytest==8.2.0
+pytest-cov==5.0.0
+ruff==0.4.4
+
+# env
+python-dotenv==1.0.1
