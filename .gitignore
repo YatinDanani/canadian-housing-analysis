@@ -31,3 +31,5 @@ data/.DS_Store
 .idea/
 *.swp
 *.swo
+frontend/.next/
+frontend/node_modules/
