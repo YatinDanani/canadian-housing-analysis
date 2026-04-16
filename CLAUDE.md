@@ -12,7 +12,7 @@ Yatin Danani — third-year B.Sc. CS + Math, University of Victoria.
 
 ## Architecture
 ```
-CMHC CSVs + StatCan API
+CMHC xlsx + StatCan API
         │
         ▼
    src/ingest.py        ← fetch, clean, normalize
@@ -49,20 +49,26 @@ CMHC CSVs + StatCan API
 ## Data sources
 | Dataset | Source | Format | Location |
 |---|---|---|---|
-| Vacancy rates by CMA | CMHC Housing Market Data | CSV download | data/raw/cmhc_vacancy.csv |
-| Housing Price Index | StatCan Table 18-10-0205-01 | CSV download | data/raw/statcan_hpi.csv |
-| Median household income | StatCan Table 11-10-0190-01 | CSV download | data/raw/statcan_income.csv |
+| Rental Market Report (per CMA) | CMHC Housing Market Data | xlsx download | data/raw/rmr-{city}-2025-en.xlsx |
+| Housing Price Index | StatCan Table 18-10-0205-01 | xlsx download | data/raw/statcan_hpi.xlsx |
+| Median household income | StatCan Table 11-10-0190-01 | xlsx download | data/raw/statcan_income.xlsx |
 
-Download instructions are in README.md. All raw files go in data/raw/ and
-are gitignored — only processed outputs in data/processed/ are committed.
+One xlsx per city, named `rmr-{city}-2025-en.xlsx` (e.g. `rmr-vancouver-2025-en.xlsx`).
+ingest.py reads Tables 1.1.1 (vacancy rates), 1.1.2 (avg rents), 1.1.3 (rental universe)
+from each file and outputs `data/processed/cmhc_rental.parquet`.
+
+All raw files go in data/raw/ and are gitignored — only processed outputs in
+data/processed/ are committed.
 
 ---
 
 ## Key analytical questions to answer
-1. Which Canadian cities have seen the fastest price appreciation over 10 years?
-2. Is there a lag between vacancy rate drops and price increases — how long?
-3. Which cities are most/least affordable relative to historical norms?
-4. Did COVID (2020-2021) break historical vacancy-price relationships?
+Data covers two survey points: Oct-2024 and Oct-2025 (18 CMAs).
+
+1. Which Canadian cities saw the fastest rent growth Oct-24 → Oct-25?
+2. Do lower-vacancy cities show higher rent growth — and how strong is that relationship?
+3. Which cities are most/least affordable relative to each other right now?
+4. Which CMAs have the tightest rental markets (low vacancy + high growth)?
 5. Which CMAs is the forecasting model most uncertain about — and why?
 
 ---
@@ -99,8 +105,8 @@ forecasts       (id, city_id, forecast_date, predicted_vacancy, lower_ci, upper_
 ```bash
 cp .env.example .env        # fill in your DB credentials
 docker-compose up -d        # starts app + postgres
-python src/ingest.py        # fetch and clean data
-python src/load.py          # load into postgres
+python3 src/ingest.py       # fetch and clean data
+python3 src/load.py         # load into postgres
 streamlit run src/dashboard.py
 ```
 

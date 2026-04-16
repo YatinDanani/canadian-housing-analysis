@@ -1,0 +1,33 @@
+# Environment — never commit credentials
+.env
+
+# Raw data — xlsx files are large; only processed outputs are committed
+data/raw/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Testing / linting caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# macOS
+.DS_Store
+data/.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

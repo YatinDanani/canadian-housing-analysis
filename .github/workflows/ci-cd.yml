@@ -44,13 +44,13 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip3 install -r requirements.txt
 
       - name: Lint with ruff
         run: ruff check src/ tests/
 
       - name: Run tests with coverage
-        run: pytest tests/ --cov=src --cov-report=xml -v
+        run: python3 -m pytest tests/ --cov=src --cov-report=xml -v
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
