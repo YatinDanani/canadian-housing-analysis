@@ -1,0 +1,20 @@
+# Raw data — large xlsx files, not needed in the image
+data/raw/
+
+# Git metadata
+.git/
+.github/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Tests and notebooks — not needed at runtime
+tests/
+notebooks/
+
+# Local config
+.env
+.DS_Store
