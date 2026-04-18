@@ -50,7 +50,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Restrict to your Vercel domain in production
+    allow_origins=[
+        "https://canadian-housing-analysis.vercel.app",
+        "https://*.vercel.app",  # covers preview deployments
+    ],
     allow_methods=["GET"],
     allow_headers=["*"],
 )
